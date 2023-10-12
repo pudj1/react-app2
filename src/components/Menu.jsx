@@ -2,7 +2,7 @@ import React from 'react';
 
 function Menu() {
     return (
-        <div class="menu">
+        <div className="menu">
             <a href="/"></a>
             <a href="/"></a>
             <a href="/">Головна</a>

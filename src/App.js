@@ -1,47 +1,60 @@
-import Product from "./components/Product";
-import Header from "./components/Header";
-import Menu from "./components/Menu";
-import Body from "./components/Body";
-import Footer from "./components/Footer";
-import React from "react";
-function App() {
-    const [products, setProducts] = React.useState([
-        { "id": 1, "name": 'Товар 1', price:30,
-            "description": 'Товар 1Товар 1Товар 1Товар 1Товар 1Товар 1Товар 1Товар 1Товар 1Товар 1Товар 1' },
-        { "id": 2, "name": 'Товар 2', price:31,
-            "description": 'Товар 2Товар 2Товар 2Товар 2Товар 2Товар 2Товар 2Товар 2Товар 2Товар 2Товар 2Товар 2Товар 2Товар 2' },
-        { "id": 3, "name": 'Товар 3', price:32,
-            "description": 'Товар 3Товар 3Товар 3Товар 3Товар 3Товар 3Товар 3Товар 3Товар 3Товар 3Товар 3Товар 3Товар 3' },
-        { "id": 4, "name": 'Товар 4', price:33,
-            "description": 'Товар 4Товар 4Товар 4Товар 4Товар 4Товар 4Товар 4Товар 4Товар 4Товар 4Товар 4Товар 4Товар 4' },
-        { "id": 5, "name": 'Товар 5', price:34,
-            "description": 'Товар 5Товар 5Товар 5Товар 5Товар 5Товар 5Товар 5Товар 5Товар 5Товар 5Товар 5Товар 5Товар 5Товар 5Товар 5' },
-        { "id": 6, "name": 'Товар 6', price:35,
-            "description": 'Товар 6Товар 6Товар 6Товар 6Товар 6Товар 6Товар 6Товар 6Товар 6Товар 6Товар 6' },
-        { "id": 7, "name": 'Товар 7', price:36,
-            "description": 'Товар 7Товар 7Товар 7Товар 7Товар 7Товар 7Товар 7Товар 7Товар 7Товар 7Товар 7' },
-        { "id": 8, "name": 'Товар 8', price:37,
-            "description": 'Товар 8Товар 8Товар 8Товар 8Товар 8Товар 8Товар 8Товар 8Товар 8' },
-        { "id": 9, "name": 'Товар 9', price:38,
-            "description": 'Товар 9Товар 9Товар 9Товар 9Товар 9Товар 9Товар 9Товар 9Товар 9Товар 9Товар 9Товар 9' },
-        { "id": 10, "name": 'Товар 10', price:39,
-            "description": 'Товар 10Товар 10Товар 10Товар 10Товар 10Товар 10Товар 10Товар 10Товар 10Товар 10' },]);
+import React, {Component, useEffect, useState} from 'react';
+
+// class App extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             count: 0,
+//         };
+//     }
+//
+//     incrementCount = () => {
+//         this.setState({ count: this.state.count + 1 });
+//     };
+//
+//     render() {
+//         return (
+//             <div>
+//                 <p>Лічильник: {this.state.count}</p>
+//                 <button onClick={this.incrementCount}>Збільшити</button>
+//             </div>
+//         );
+//     }
+// }
+//
+// export default App;
+function useStatus() {
+    const [status, setStatus] = useState('Завантаження...');
+
+    useEffect(() => {
+        // Приклад асинхронної логіки для встановлення статусу
+        setTimeout(() => {
+            setStatus('Завантажено');
+        }, 2000);
+    }, []);
+
+    return status;
+}
+function useConsoleLogger(data) {
+    useEffect(() => {
+        console.log('Дані зі стану:', data);
+    }, [data]);
+}
+export const App = () => {
+    const [count, setCount] = useState(0);
+    const status = useStatus();
+
+    useConsoleLogger(count); // Використовуємо хук для виведення даних зі стану в консоль
+
+    const incrementCount = () => {
+        setCount(count + 1);
+    };
 
     return (
         <div>
-            <Header />
-            <Menu />
-            <Body>
-                {products.map((product) => (
-                    <Product key={product.id}
-                        name={product.name}
-                        price={product.price}
-                        description={product.description}
-                    />
-                ))}
-            </Body>
-            <Footer />
+            <p>Статус: {status}</p>
+            <p>Лічильник: {count}</p>
+            <button onClick={incrementCount}>Збільшити</button>
         </div>
     );
 }
-export default App;

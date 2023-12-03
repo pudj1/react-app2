@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Modal, Button, Spin } from 'antd';
+import {Modal, Button, Spin, Input} from 'antd';
+import {LockOutlined, UserOutlined} from "@ant-design/icons";
 
 const AuthModal = ({ visible, onClose }) => {
     const [loading, setLoading] = useState(false);
@@ -7,10 +8,9 @@ const AuthModal = ({ visible, onClose }) => {
     const handleLogin = () => {
         setLoading(true);
 
-        // Здесь ви можете реалізувати вашу логіку авторизації
         setTimeout(() => {
             setLoading(false);
-            onClose(); // Закрийте модальне вікно після завершення анімації завантаження
+            onClose();
         }, 2000);
     };
 
@@ -32,14 +32,19 @@ const AuthModal = ({ visible, onClose }) => {
                 <Spin tip="Зачекайте, вхід в процесі..." />
             ) : (
                 <>
-                    <div>
-                        <label>Логін</label>
-                        <input type="text" placeholder="Введіть логін" />
-                    </div>
-                    <div>
-                        <label>Пароль</label>
-                        <input type="password" placeholder="Введіть пароль" />
-                    </div>
+                <label>Логін</label>
+                <Input
+                    prefix={<UserOutlined />}
+                    type="text"
+                    placeholder="Введіть логін"
+                    style={{ width: '100%' }}
+                />
+                <label>Пароль</label>
+                <Input.Password
+                        prefix={<LockOutlined />}
+                    placeholder="Введіть пароль"
+                    style={{ width: '100%' }}
+                />
                 </>
             )}
         </Modal>
